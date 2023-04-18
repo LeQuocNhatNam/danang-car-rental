@@ -52,6 +52,10 @@
   font-size: 50px;
 }
 
+.services .card-body .card-title {
+  text-transform: uppercase;
+}
+
 .team .card-body i {
   font-size: 20px;
 }
@@ -60,10 +64,15 @@
   box-shadow: 15px 15px 40px rgba(0,0,0,0.15);
 }
 
+.portfolio .card img {
+  height: 30vh;
+  width: 100%;
+}
+
+
 .team .card {
   box-shadow: 15px 15px 40px rgba(0,0,0,0.15);
 }
-
 
 
 
