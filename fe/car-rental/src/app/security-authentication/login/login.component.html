@@ -1,8 +1,7 @@
 <div class="row">
   <div id="main-login">
-    <h1 style="text-shadow: 2px 2px 5px red;">Danang Car Rental Corporation</h1>
+    <h1 style="text-shadow: 2px 2px 5px orange;">Danang Car Rental Corporation</h1>
     <br>
-
     <div class="container" id="container">
       <div class="form-container sign-up-container">
         <form action="#">
@@ -16,7 +15,7 @@
       </div>
       <div class="col-md-6">
         <div class="form-container sign-in-container">
-          <form>
+          <form *ngIf="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <h1>Đăng nhập</h1>
             <div class="social-container">
               <a href="#" class="social">
@@ -44,8 +43,8 @@
               </a>
             </div>
             <span>hoặc sử dụng tài khoản của bạn</span>
-            <input type="email" placeholder="Tên đăng nhập"/>
-            <input type="password" placeholder="Mật khẩu"/>
+            <input type="email" formControlName="username" placeholder="Tên đăng nhập"/>
+            <input type="password" formControlName="password" placeholder="Mật khẩu"/>
             <a href="#">Quên mật khẩu?</a>
             <button>Đăng nhập</button>
           </form>

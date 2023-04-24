@@ -75,7 +75,13 @@
 }
 
 
+.page-link {
+  color: black;
+}
 
+.pagination .active .page-link {
+  background-color: #ffc107;
+}
 
 
 /* --responsive css-- */

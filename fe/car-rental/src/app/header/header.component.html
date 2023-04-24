@@ -25,13 +25,32 @@
           <a class="nav-link" href="#statistics">Thống kê</a>
         </li>
 
-        <li class="nav-item">
-          <form class="d-flex ms-2 col-lg-10">
-            <input class="form-control" type="search" placeholder="Tìm kiếm" aria-label="Search">
-            <button class="btn btn-outline-warning btn-sm ms-2" type="submit"><i class="bi bi-search"></i>
-            </button>
-          </form>
+        <li [hidden]="isLoggedIn">
+          <a routerLink="/security/login"><img src="../../assets/images/header/login-icon.png" class="img-fluid" style="width: 30px"></a>
         </li>
+
+        <li [hidden]="!isLoggedIn" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+             aria-expanded="false">
+            <span><i class="bi bi-person-lines-fill mx-2"></i></span>
+            <span style="color: #eb5d1e">{{loginedName}}</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+            <li><a class="dropdown-item" (click)="logOut()">Đăng xuất</a></li>
+          </ul>
+        </li>
+
+
+<!--        <li class="nav-item">-->
+<!--          <form class="d-flex ms-2 col-lg-10">-->
+<!--            <input class="form-control" type="search" placeholder="Tìm kiếm" aria-label="Search">-->
+<!--            <button class="btn btn-outline-warning btn-sm ms-2" type="submit"><i class="bi bi-search"></i>-->
+<!--            </button>-->
+<!--          </form>-->
+<!--        </li>-->
+
+
       </ul>
 
     </div>
