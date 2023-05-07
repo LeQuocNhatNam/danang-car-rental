@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
   username: string;
   currentUser: string;
-  loginedName: string;
+  loginName: string;
   role: string;
   isLoggedIn = false;
 
@@ -23,8 +23,8 @@ export class HeaderComponent implements OnInit {
   }
 
   loadHeader(): void {
+
     if (this.tokenStorageService.getToken()) {
-      debugger
       this.currentUser = this.tokenStorageService.getUser().username;
       this.role = this.tokenStorageService.getUser().roles[0];
       this.username = this.tokenStorageService.getUser().username;
@@ -46,6 +46,7 @@ export class HeaderComponent implements OnInit {
     this.shareService.sendClickEvent();
     await Swal.fire({
       text: 'Đăng xuất thành công',
+      iconColor: 'darkorange',
       icon: 'success',
       showConfirmButton: false,
       timer: 1500
@@ -56,7 +57,7 @@ export class HeaderComponent implements OnInit {
 
   getUsernameAccount() {
     if (this.tokenStorageService.getToken()) {
-      this.loginedName = this.tokenStorageService.getUser().name;
+      this.loginName = this.tokenStorageService.getUser().name;
     }
   }
 

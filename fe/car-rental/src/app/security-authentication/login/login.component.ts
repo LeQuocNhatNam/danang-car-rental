@@ -2,11 +2,9 @@ import {Component, DoCheck, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import Swal from 'sweetalert2';
 import {LoginService} from '../service/login.service';
-import {Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import {TokenStorageService} from '../service/token-storage.service';
 import {ShareService} from '../service/share.service';
-import {debounce} from "rxjs/operators";
-import {debuglog} from "util";
 
 @Component({
   selector: 'app-login',
@@ -27,6 +25,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe(x => {
+      if(x instanceof NavigationEnd)
+      {
+        window.scrollTo(0, 0);
+      }
+    });
     //prototpye
     // to toggle
     const signUpButton = document.getElementById('signUp');

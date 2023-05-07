@@ -8,43 +8,31 @@
     <table width="100%">
       <thead>
       <tr>
-        <td>remove</td>
-        <td>Image</td>
-        <td>Product</td>
-        <td>Quantity</td>
-        <td>Price</td>
-        <td>Total</td>
+        <td>Xoá</td>
+        <td>Hình ảnh</td>
+        <td>Tên xe</td>
+        <td>Đơn giá (VNĐ/ngày)</td>
+        <td>Ngày đi</td>
+        <td>Ngày về</td>
+        <td>Tổng giá (VNĐ)</td>
       </tr>
       </thead>
 
       <tbody>
-      <tr>
-        <td><a href="#"><i class="fas fa-trash-alt"></i></a></td>
-        <td><img src="../../assets/images/car-image-1.jpg" alt=""></td>
-        <td><h5>ABC</h5></td>
-        <td><h5>$200</h5></td>
-        <td><input class="w-25 pl-1" value="1" type="number"></td>
-        <td><h5>$300,000</h5></td>
-      </tr>
-      <tr>
-        <td><a href="#"><i class="fas fa-trash-alt"></i></a></td>
-        <td><img src="../../assets/images/car-image-2.png" alt=""></td>
-        <td><h5>ABC</h5></td>
-        <td><h5>$200</h5></td>
-        <td><input class="w-25 pl-1" value="1" type="number"></td>
-        <td><h5>$300,000</h5></td>
-      </tr>
-      <tr>
-        <td><a href="#"><i class="fas fa-trash-alt"></i></a></td>
-        <td><img src="../../assets/images/car-image-3.jpg" alt=""></td>
-        <td><h5>ABC</h5></td>
-        <td><h5>$200</h5></td>
-        <td><input class="w-25 pl-1" value="1" type="number"></td>
-        <td><h5>$300,000</h5></td>
+      <tr *ngFor="let item of cart">
+        <td><a (click)="deleteCartItem(item.id)"><i class="fas fa-trash-alt"></i></a></td>
+        <td><img src="{{item.imageList[0].link}}" alt=""></td>
+        <td><h5>{{item.imageList[0].car.model}}</h5></td>
+        <td><h5>{{VND.format(item.imageList[0].car.price)}}</h5></td>
+        <td><h5>{{item.pickupDate}}</h5></td>
+        <td><h5>{{item.returnDate}}</h5></td>
+        <td><h5>{{VND.format(item.totalPrice)}}</h5></td>
       </tr>
       </tbody>
     </table>
   </section>
+
+
 
   <section id="cart-bottom" class="container py-5">
     <div class="row">
@@ -59,23 +47,24 @@
 
       <div class="total col-lg-6 col-md-6 col-12">
         <div>
-          <h5>Cart Total</h5>
+          <h5>Tổng tiền thanh toán</h5>
           <div class="d-flex justify-content-between">
-            <h6>Subtotal</h6>
-            <p>$250</p>
+            <h6>Thành tiền
+            </h6>
+            <p>{{VND.format(totalBeforeTax)}}</p>
           </div>
           <div class="d-flex justify-content-between">
-            <h6>Shipping</h6>
-            <p>$250</p>
+            <h6>Thuế VAT (10%)</h6>
+            <p>{{VND.format(totalBeforeTax/10)}}</p>
           </div>
           <hr class="second-hr">
 
           <div class="d-flex justify-content-between">
-            <h6>Total</h6>
-            <p>$250</p>
+            <h6>Tổng tiền</h6>
+            <h4>{{VND.format(totalAfterTax)}}</h4>
           </div>
           <div class="d-flex justify-content-end">
-            <button class="btn btn-warning" >Proceed To Checkout</button>
+            <button class="btn btn-warning" >Thanh toán</button>
           </div>
         </div>
 

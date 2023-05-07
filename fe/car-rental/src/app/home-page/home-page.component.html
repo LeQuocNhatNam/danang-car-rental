@@ -43,6 +43,12 @@
   </button>
 </div>
 
+<div id="body" style="position: sticky ;top: 120px;position: -webkit-sticky; z-index: 1">
+  <form action="" class="search-box">
+    <input #element type="text" id="search-text" placeholder="Nhập tên xe" required>
+    <button (click)="searchCars(element.value)" id="search-btn"><i class="bi bi-search"></i></button>
+  </form>
+</div>
 
 <!--Cars' list-->
 <section id="carList" class="portfolio section-padding">
@@ -52,127 +58,78 @@
         <div class="section-header text-center pb-5">
           <h2>DANH SÁCH XE</h2>
           <p>Đa dạng các dòng xe mới và hiện đại cho quý khách thoải mái lựa chọn</p>
+          <h1 style="color:#ffc107; font-weight: bold; font-style: italic " *ngIf="message">{{message}}</h1>
+          <div class="container py-2">
+            <h5>Vui lòng chọn ngày thuê</h5>
+            <div class="row justify-content-center">
+              <div class="col-lg-3 col-sm-5">
+                <label >Ngày đi</label>
+                <input #pickupDate  class="form-control" type="date"/>
+              </div>
+              <div class="col-lg-3 col-sm-5">
+                <label >Ngày về</label>
+                <input #returnDate  class="form-control" type="date"/>
+              </div>
+              <div class="col-lg-1 col-sm-2">
+                <br>
+                <button (click)="searchCarsByDate(pickupDate.value,returnDate.value)" class="btn btn-warning">Tìm xe</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <div class="row mb-3">
-      <div class="col-12 col-md-12 col-lg-4">
+      <div class="col-12 col-md-12 col-lg-4" *ngFor="let carDTO of carDTOList">
         <div class="card text-center bg-white pb-2">
           <div class="card-body text-dark">
             <div class="img-area mb-4">
-              <a href="#services">
-                <img src="../../assets/images/car-image-4.jpg" alt="" class="img-fluid">
+              <a href="#services" routerLink="/detail/{{carDTO.id}}">
+                <img src="{{carDTO.imageList[0].link}}" alt="" class="img-fluid">
               </a>
             </div>
-            <h3 class="card-title">Mazda 3 Luxury 2022</h3>
-            <p class="lead">Giá: 800,000 VNĐ/ngày</p>
-            <button class="btn btn-warning text-dark">Đặt ngay</button>
+            <h3 class="card-title"> {{carDTO.brand}} {{carDTO.model}}</h3>
+            <p class="lead">Giá: {{VND.format(carDTO.price)}} VNĐ/ngày</p>
+            <button (click)="addToCart(carDTO.id)" class="btn btn-warning text-dark">Thêm vào danh sách thuê</button>
           </div>
         </div>
       </div>
-
-      <div class="col-12 col-md-12 col-lg-4">
-        <div class="card text-center bg-white pb-2">
-          <div class="card-body text-dark">
-            <div class="img-area mb-4">
-              <a href="#services" routerLink="/detail">
-                <img src="https://drive.gianhangvn.com/image/2143780-2176362j32154.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-            <h3 class="card-title">Mitsubishi Xpander 2022</h3>
-            <p class="lead">Giá: 900,000 VNĐ/ngày</p>
-            <button class="btn btn-warning text-dark">Đặt ngay</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-12 col-lg-4">
-        <div class="card text-center bg-white pb-2">
-          <div class="card-body text-dark">
-            <div class="img-area mb-4">
-              <a href="#services">
-                <img src="../../assets/images/car-image-3.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-            <h3 class="card-title">Bejing X7 2023</h3>
-            <p class="lead">Giá: 1,000,000 VNĐ/ngày</p>
-            <button class="btn btn-warning text-dark">Đặt ngay</button>
-          </div>
-        </div>
-      </div>
-
     </div>
-
-    <div class="row mb-3">
-      <div class="col-12 col-md-12 col-lg-4">
-        <div class="card text-center bg-white pb-2">
-          <div class="card-body text-dark">
-            <div class="img-area mb-4">
-              <a href="#services">
-                <img src="../../assets/images/car-image-4.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-            <h3 class="card-title">Mazda 3 Luxury 2022</h3>
-            <p class="lead">Giá: 800,000 VNĐ/ngày</p>
-            <button class="btn btn-warning text-dark">Đặt ngay</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-12 col-lg-4">
-        <div class="card text-center bg-white pb-2">
-          <div class="card-body text-dark">
-            <div class="img-area mb-4">
-              <a href="#services" routerLink="/detail">
-                <img src="https://drive.gianhangvn.com/image/2143780-2176362j32154.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-            <h3 class="card-title">Mitsubishi Xpander 2022</h3>
-            <p class="lead">Giá: 900,000 VNĐ/ngày</p>
-            <button class="btn btn-warning text-dark">Đặt ngay</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12 col-md-12 col-lg-4">
-        <div class="card text-center bg-white pb-2">
-          <div class="card-body text-dark">
-            <div class="img-area mb-4">
-              <a href="#services">
-                <img src="../../assets/images/car-image-3.jpg" alt="" class="img-fluid">
-              </a>
-            </div>
-            <h3 class="card-title">Bejing X7 2023</h3>
-            <p class="lead">Giá: 1,000,000 VNĐ/ngày</p>
-            <button class="btn btn-warning text-dark">Đặt ngay</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-<!--    pagination-->
-    <div class="d-flex justify-content-center">
-      <nav aria-label="Page navigation example">
-        <nav aria-label="...">
-          <ul class="pagination">
-            <li class="page-item disabled" >
-              <span class="page-link">Previous</span>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item" aria-current="page">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
-      </nav>
+    <!--    pagination-->
+    <div class="d-flex justify-content-center " style="margin-top: 20px">
+      <button class="btn btn-outline-warning" (click)="first()">
+        Trang Đầu
+      </button>
+      <button class="btn btn-outline-warning" (click)="goPrevious()"
+              [style.display]=" page==0 ? 'none': 'block'">{{page}}</button>
+      <button class="btn btn-warning">{{page + 1}}</button>
+      <button class="btn btn-outline-warning" (click)="goNext()"
+              [style.display]=" page==pageCount-1 ? 'none': 'block'">{{page + 2}}</button>
+      <button class="btn btn-outline-warning" (click)="last()">
+        Trang Cuối
+      </button>
     </div>
   </div>
 </section>
 
+
+<!--<button class="btn btn-outline-warning" (click)="first()">Trang đầu</button>-->
+<!--<button class="btn btn-outline-warning" (click)="goPrevious()"-->
+<!--        [style.display]="page == 0 ? 'none': 'block'">{{page}}-->
+<!--</button>-->
+
+<!--<button class="btn btn-warning">{{page + 1}}</button>-->
+<!--&lt;!&ndash;            <li class="page-item active"><a class="page-link" href="#">1</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="page-item" aria-current="page">&ndash;&gt;-->
+<!--&lt;!&ndash;              <a class="page-link" href="#">2</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="page-item"><a class="page-link" href="#">3</a></li>&ndash;&gt;-->
+
+<!--<button  (click)="goNext()"-->
+<!--         [style.display]="page == pageCount - 1 ? 'none': 'block'">{{page + 2}}-->
+<!--</button>-->
+
+<!--<button class="btn btn-outline-warning" (click)="last()">Trang cuối</button>-->
 
 <!--services section-->
 <section id="services" class="services section-padding">
