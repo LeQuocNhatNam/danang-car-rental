@@ -1,4 +1,4 @@
-<div >
+<div>
   <section id="cart-header" class="pt-5 mt-5 container text-center">
     <h2 class="font-weight-bold pt-5">DANH SÁCH XE BẠN CHỌN</h2>
   </section>
@@ -11,27 +11,31 @@
         <td>Xoá</td>
         <td>Hình ảnh</td>
         <td>Tên xe</td>
-        <td>Đơn giá (VNĐ/ngày)</td>
+        <td>Đơn giá</td>
         <td>Ngày đi</td>
         <td>Ngày về</td>
-        <td>Tổng giá (VNĐ)</td>
+        <td>Số ngày</td>
+        <td>Thành tiền (vnd)</td>
       </tr>
       </thead>
 
       <tbody>
+      <tr *ngIf="message">
+        <td colspan="8"><h3 style="color:#ffc107; font-weight: bold; font-style: italic ">{{message}}</h3></td>
+      </tr>
       <tr *ngFor="let item of cart">
         <td><a (click)="deleteCartItem(item.id)"><i class="fas fa-trash-alt"></i></a></td>
         <td><img src="{{item.imageList[0].link}}" alt=""></td>
-        <td><h5>{{item.imageList[0].car.model}}</h5></td>
+        <td><h5>{{item.imageList[0].car.brand}} {{item.imageList[0].car.model}}</h5></td>
         <td><h5>{{VND.format(item.imageList[0].car.price)}}</h5></td>
         <td><h5>{{item.pickupDate}}</h5></td>
         <td><h5>{{item.returnDate}}</h5></td>
+        <td><h5>{{item.diffDays}}</h5></td>
         <td><h5>{{VND.format(item.totalPrice)}}</h5></td>
       </tr>
       </tbody>
     </table>
   </section>
-
 
 
   <section id="cart-bottom" class="container py-5">
@@ -55,7 +59,7 @@
           </div>
           <div class="d-flex justify-content-between">
             <h6>Thuế VAT (10%)</h6>
-            <p>{{VND.format(totalBeforeTax/10)}}</p>
+            <p>{{VND.format(totalBeforeTax / 10)}}</p>
           </div>
           <hr class="second-hr">
 
@@ -64,11 +68,50 @@
             <h4>{{VND.format(totalAfterTax)}}</h4>
           </div>
           <div class="d-flex justify-content-end">
-            <button class="btn btn-warning" >Thanh toán</button>
+            <button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning">Thanh toán</button>
           </div>
         </div>
-
       </div>
     </div>
   </section>
+</div>
+
+
+<!-- Modal payment-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thanh toán</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn chắc chắn muốn thanh toán chưa?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Xem lại</button>
+        <button (click)="onPayment();" data-bs-toggle="modal" data-bs-target="#exampleModal1" type="button"
+                class="btn btn-warning" data-bs-dismiss="modal">Thanh toán
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal paypal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Chọn phương thức thanh toán</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="myPaypal"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="modal-payment-btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -8,4 +8,5 @@ export interface RentalDetail {
   returnDate?: string;
   imageList?: Image[];
   totalPrice?: number;
+  diffDays?: number;
 }

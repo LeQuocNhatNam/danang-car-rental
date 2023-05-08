@@ -9,6 +9,7 @@ export class CartService {
   private URL_ADD_TO_CART = "http://localhost:8080/api/user/cart/add";
   private URL_CART_LIST = "http://localhost:8080/api/user/cart";
   private URL_DELETE_CART_ITEM = "http://localhost:8080/api/user/cart/delete/";
+  private URL_COMPLETE_PAYMENT = "http://localhost:8080/api/user/cart/pay";
 
   constructor(private httpClient: HttpClient) {
   }
@@ -26,5 +27,7 @@ export class CartService {
     return this.httpClient.delete(this.URL_DELETE_CART_ITEM + id);
   }
 
-
+  completePayment(): Observable<any> {
+    return this.httpClient.put(this.URL_COMPLETE_PAYMENT,"");
+  }
 }

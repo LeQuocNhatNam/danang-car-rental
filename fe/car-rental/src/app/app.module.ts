@@ -26,7 +26,7 @@ import { PaymentComponent } from './payment/payment.component';
     EmployeeComponent,
     CustomerComponent,
     ErrorPageComponent,
-    PaymentComponent
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,
