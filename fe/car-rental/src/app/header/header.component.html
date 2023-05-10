@@ -38,7 +38,7 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
              aria-expanded="false">
             <span><i class="bi bi-person-lines-fill mx-2"></i></span>
-            <span style="color: #eb5d1e">{{loginName}}</span>
+            <span [hidden]="!isLoggedIn" style="color: #eb5d1e">{{loginName}}</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>

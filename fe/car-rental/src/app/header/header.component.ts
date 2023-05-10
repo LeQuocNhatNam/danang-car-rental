@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import {TokenStorageService} from "../security-authentication/service/token-storage.service";
 import {ShareService} from "../security-authentication/service/share.service";
 import {Router} from "@angular/router";
+import {LoginService} from "../security-authentication/service/login.service";
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(private tokenStorageService: TokenStorageService,
               private shareService: ShareService,
-              private router: Router) {
+              private router: Router,
+              private loginService: LoginService) {
   }
 
   loadHeader(): void {
@@ -45,14 +47,16 @@ export class HeaderComponent implements OnInit {
     this.tokenStorageService.signOut();
     this.shareService.sendClickEvent();
     await Swal.fire({
-      text: 'Đăng xuất thành công',
+      text: 'Đã đăng xuất',
       iconColor: 'darkorange',
       icon: 'success',
+      confirmButtonColor: 'darkorange',
       showConfirmButton: false,
       timer: 1500
     });
+    this.loginService.isLoggedIn = false;
+    this.isLoggedIn = false;
     await this.router.navigateByUrl('/');
-    location.reload();
   }
 
   getUsernameAccount() {

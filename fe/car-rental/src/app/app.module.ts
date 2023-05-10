@@ -14,6 +14,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import {AuthInterceptor} from "./security-authentication/security-auth/auth.interceptor";
 import {FormsModule} from "@angular/forms";
 import { PaymentComponent } from './payment/payment.component';
+import { CartHistoryComponent } from './cart-history/cart-history.component';
+import { HistoryDetailComponent } from './history-detail/history-detail.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { PaymentComponent } from './payment/payment.component';
     CustomerComponent,
     ErrorPageComponent,
     PaymentComponent,
+    CartHistoryComponent,
+    HistoryDetailComponent,
   ],
   imports: [
     BrowserModule,

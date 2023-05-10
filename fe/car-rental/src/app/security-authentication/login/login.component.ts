@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
   // errorMessage = '';
   roles: string[] = [];
   returnUrl: string;
-
   constructor(private loginService: LoginService,
               private router: Router,
               private tokenStorageService: TokenStorageService,
@@ -25,6 +24,16 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.tokenStorageService.getToken()) {
+      debugger
+      Swal.fire({
+        text: 'Bạn đã đăng nhập.',
+        icon: 'warning',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.router.navigateByUrl('/');
+    }
     this.router.events.subscribe(x => {
       if(x instanceof NavigationEnd)
       {
@@ -48,15 +57,7 @@ export class LoginComponent implements OnInit {
 
 
 
-    if(this.loginService.isLoggedIn) {
-      Swal.fire({
-        text: 'Bạn đã đăng nhập.',
-        icon: 'warning',
-        showConfirmButton: false,
-        timer: 1500
-      });
-      this.router.navigateByUrl('/');
-    }
+
     this.view();
     this.loginForm = new FormGroup({
       username: new FormControl('',[Validators.email, Validators.required]),
@@ -80,7 +81,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    debugger
     this.loginService.login(this.loginForm.value).subscribe(
       data => {
         debugger
@@ -91,8 +92,7 @@ export class LoginComponent implements OnInit {
           this.tokenStorageService.saveTokenSession(data.accessToken);
           this.tokenStorageService.saveUserLocal(data);
         }
-
-        this.loginService.isLoggedIn = true;
+        this.loginService.setLoggedIn(true);
         this.username = this.tokenStorageService.getUser().username;
         this.roles = this.tokenStorageService.getUser().roles;
         this.loginForm.reset();
@@ -100,7 +100,8 @@ export class LoginComponent implements OnInit {
           text: 'Đăng nhập thành công',
           icon: 'success',
           showConfirmButton: false,
-          timer: 1500
+          confirmButtonColor: 'orange',
+          timer: 1000
         });
         this.router.navigateByUrl('/');
         this.shareService.sendClickEvent();

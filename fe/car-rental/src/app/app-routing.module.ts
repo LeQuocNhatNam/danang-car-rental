@@ -9,6 +9,9 @@ import {UserGuard} from "./security-authentication/security-auth/user.guard";
 import {AdminGuard} from "./security-authentication/security-auth/admin.guard";
 import {ErrorPageComponent} from "./error-page/error-page.component";
 import {PaymentComponent} from "./payment/payment.component";
+import {CartService} from "./service/cart.service";
+import {CartHistoryComponent} from "./cart-history/cart-history.component";
+import {HistoryDetailComponent} from "./history-detail/history-detail.component";
 
 const routes: Routes = [
   {
@@ -44,6 +47,12 @@ const routes: Routes = [
   }, {
     path: 'payment',
     component: PaymentComponent
+  }, {
+    path: 'cart-history',
+    component: CartHistoryComponent
+  }, {
+    path: 'history-detail/:id',
+    component: HistoryDetailComponent
   }];
 
 @NgModule({

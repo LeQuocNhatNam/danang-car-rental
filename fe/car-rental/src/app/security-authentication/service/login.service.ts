@@ -29,6 +29,14 @@ export class LoginService {
     }, this.httpOptions);
   }
 
+  loggedIn(): boolean{
+    return this.isLoggedIn
+  };
+
+  setLoggedIn(a: boolean){
+    this.isLoggedIn = a;
+  }
+
   forgotPassword(username: string): Observable<any> {
     return this.http.get(AUTH_API + 'reset-password/' + username);
   }

@@ -49,8 +49,8 @@ export class CartComponent implements OnInit {
   getCart() {
     this.cartService.getCart().subscribe(data => {
       debugger
-      const options = {day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC'};
       this.cart = data;
+      const options = {day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC'};
       if (this.cart == null) {
         this.message = "Chưa có mục nào trong giỏ hàng"
         return;
@@ -73,13 +73,14 @@ export class CartComponent implements OnInit {
   }
 
   onPayment() {
+    document.querySelector('#myPaypal').innerHTML = '';
     render(
       {
         id: "#myPaypal",
         currency: "USD",
         value: '' + this.usdPayment,
         onApprove: (details => {
-          this.cartService.completePayment().subscribe(() => {
+          this.cartService.completePayment(this.totalAfterTax).subscribe(() => {
             Swal.fire({
               icon: "success",
               iconColor: 'darkorange',
